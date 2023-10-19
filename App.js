@@ -6,7 +6,7 @@ import IconButton from './components/ui/IconButton';
 import { Colors } from './constants/colors';
 import AddPlace from './screens/AddPlace';
 import AllPlaces from './screens/AllPlaces';
-import Map from './screens/Map';
+import PickOnMap from './screens/PickOnMap';
 
 const Stack = createStackNavigator();
 
@@ -48,7 +48,13 @@ export default function App() {
               title: 'Add a New Place'
             }}
           />
-          <Stack.Screen name="map" component={Map} />
+          <Stack.Screen
+            name="map"
+            component={PickOnMap}
+            options={{
+              title: 'Pick a Location on the Map'
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

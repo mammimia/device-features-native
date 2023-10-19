@@ -1,19 +1,28 @@
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
+  PermissionStatus,
   getCurrentPositionAsync,
-  useForegroundPermissions,
-  PermissionStatus
+  useForegroundPermissions
 } from 'expo-location';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Colors } from '../../constants/colors';
+import Map from './Map';
 import OutlinedButton from './OutlinedButton';
-import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
 
 function LocationPicker() {
   const navigation = useNavigation();
+  const route = useRoute();
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
   const [pickedLocation, setPickedLocation] = useState();
+
+  useEffect(() => {
+    const pickedLocationFromMap = route.params?.pickedLocation;
+
+    if (pickedLocationFromMap) {
+      setPickedLocation(pickedLocationFromMap);
+    }
+  }, [route.params?.pickedLocation]);
 
   async function verifyPermissions() {
     if (
@@ -42,8 +51,8 @@ function LocationPicker() {
 
     const location = await getCurrentPositionAsync();
     setPickedLocation({
-      lat: location.coords.latitude,
-      lng: location.coords.longitude
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude
     });
   }
 
@@ -53,7 +62,9 @@ function LocationPicker() {
 
   return (
     <View>
-      <View style={styles.mapPreview}></View>
+      <View style={styles.mapPreview}>
+        <Map selectedLocation={pickedLocation} />
+      </View>
       <View style={styles.buttonContainer}>
         <OutlinedButton icon="location" onPress={getLocationHandler}>
           Locate User
@@ -69,12 +80,7 @@ function LocationPicker() {
 const styles = StyleSheet.create({
   mapPreview: {
     width: '100%',
-    height: 200,
-    marginVertical: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.primary100,
-    borderRadius: 4
+    height: 200
   },
   buttonContainer: {
     flexDirection: 'row',

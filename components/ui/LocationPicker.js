@@ -6,10 +6,14 @@ import {
 import { StyleSheet, View } from 'react-native';
 import { Colors } from '../../constants/colors';
 import OutlinedButton from './OutlinedButton';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
 function LocationPicker() {
+  const navigation = useNavigation();
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
+  const [pickedLocation, setPickedLocation] = useState();
 
   async function verifyPermissions() {
     if (
@@ -37,9 +41,15 @@ function LocationPicker() {
     if (!hasPermission) return;
 
     const location = await getCurrentPositionAsync();
+    setPickedLocation({
+      lat: location.coords.latitude,
+      lng: location.coords.longitude
+    });
   }
 
-  function pickOnMapHandler() {}
+  function pickOnMapHandler() {
+    navigation.navigate('map');
+  }
 
   return (
     <View>

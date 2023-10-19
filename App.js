@@ -2,10 +2,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
-import AddPlace from './screens/AddPlace';
-import AllPlaces from './screens/AllPlaces';
 import IconButton from './components/ui/IconButton';
 import { Colors } from './constants/colors';
+import AddPlace from './screens/AddPlace';
+import AllPlaces from './screens/AllPlaces';
+import Map from './screens/Map';
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,7 @@ export default function App() {
               title: 'Add a New Place'
             }}
           />
+          <Stack.Screen name="map" component={Map} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

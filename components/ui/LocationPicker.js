@@ -9,18 +9,17 @@ import { StyleSheet, View } from 'react-native';
 import Map from './Map';
 import OutlinedButton from './OutlinedButton';
 
-function LocationPicker() {
+function LocationPicker({ location, onLocationChange }) {
   const navigation = useNavigation();
   const route = useRoute();
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
-  const [pickedLocation, setPickedLocation] = useState();
 
   useEffect(() => {
     const pickedLocationFromMap = route.params?.pickedLocation;
 
     if (pickedLocationFromMap) {
-      setPickedLocation(pickedLocationFromMap);
+      onLocationChange(pickedLocationFromMap);
     }
   }, [route.params?.pickedLocation]);
 
@@ -50,7 +49,7 @@ function LocationPicker() {
     if (!hasPermission) return;
 
     const location = await getCurrentPositionAsync();
-    setPickedLocation({
+    onLocationChange({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude
     });
@@ -63,7 +62,7 @@ function LocationPicker() {
   return (
     <View>
       <View style={styles.mapPreview}>
-        <Map selectedLocation={pickedLocation} />
+        <Map selectedLocation={location} />
       </View>
       <View style={styles.buttonContainer}>
         <OutlinedButton icon="location" onPress={getLocationHandler}>
@@ -80,7 +79,8 @@ function LocationPicker() {
 const styles = StyleSheet.create({
   mapPreview: {
     width: '100%',
-    height: 200
+    height: 200,
+    marginVertical: 4
   },
   buttonContainer: {
     flexDirection: 'row',

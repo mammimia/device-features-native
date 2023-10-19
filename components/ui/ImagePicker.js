@@ -8,8 +8,7 @@ import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 import { Colors } from '../../constants/colors';
 import OutlinedButton from './OutlinedButton';
 
-function ImagePicker() {
-  const [image, setImage] = useState(null);
+function ImagePicker({ image, onImageChange }) {
   const [cameraPermissionInformation, requestPermission] =
     useCameraPermissions();
 
@@ -41,7 +40,7 @@ function ImagePicker() {
       quality: 0.5
     });
 
-    setImage(image.assets[0].uri);
+    onImageChange(image.assets[0].uri);
   }
 
   return (

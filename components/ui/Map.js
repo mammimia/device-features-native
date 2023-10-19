@@ -9,10 +9,16 @@ function Map({
     longitude: -122.43,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421
-  }
+  },
+  ...props
 }) {
   return (
-    <MapView style={styles.map} initialRegion={mapRegion} onPress={onPress}>
+    <MapView
+      style={styles.map}
+      initialRegion={mapRegion}
+      onPress={onPress}
+      {...props}
+    >
       {selectedLocation && (
         <Marker title="Picked Location" coordinate={selectedLocation} />
       )}

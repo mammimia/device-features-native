@@ -1,9 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
+import { useCallback, useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import 'react-native-gesture-handler';
 import IconButton from './components/ui/IconButton';
 import { Colors } from './constants/colors';
+import { init } from './database/Database';
 import AddPlace from './screens/AddPlace';
 import AllPlaces from './screens/AllPlaces';
 import PickOnMap from './screens/PickOnMap';
@@ -11,8 +15,34 @@ import PickOnMap from './screens/PickOnMap';
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await init();
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
-    <>
+    <View style={styles.rootContainer} onLayout={onLayoutRootView}>
       <StatusBar style="dark" />
       <NavigationContainer>
         <Stack.Navigator
@@ -57,6 +87,12 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1
+  }
+});

@@ -4,14 +4,16 @@ import { Colors } from '../../constants/colors';
 import Button from '../ui/Button';
 import ImagePicker from '../ui/ImagePicker';
 import LocationPicker from '../ui/LocationPicker';
+import { Place } from '../../models/Place';
 
-function PlaceForm() {
+function PlaceForm({ onCreatePlace }) {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState();
   const [location, setLocation] = useState();
 
   function savePlaceHandler() {
-    console.log(title, image, location);
+    const place = new Place(title, image, location);
+    onCreatePlace(place);
   }
 
   return (
@@ -34,7 +36,8 @@ function PlaceForm() {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    padding: 24
+    paddingHorizontal: 24,
+    marginVertical: 16
   },
   label: {
     fontWeight: 'bold',

@@ -5,7 +5,7 @@ function PlaceItem({ place, onSelect }) {
   return (
     <Pressable
       style={({ pressed }) => [styles.rootContainer, pressed && styles.pressed]}
-      onSelect={onSelect}
+      onPress={onSelect}
     >
       <Image style={styles.image} source={{ uri: place.imageUri }} />
       <View style={styles.infoContainer}>

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Colors } from '../../constants/colors';
 import PlaceItem from './PlaceItem';
@@ -13,11 +14,20 @@ function PlacesList({ places }) {
     );
   }
 
+  const navigation = useNavigation();
+
   return (
     <FlatList
       style={styles.rootContainer}
       data={places}
-      renderItem={({ item }) => <PlaceItem place={item} />}
+      renderItem={({ item }) => (
+        <PlaceItem
+          place={item}
+          onSelect={() =>
+            navigation.navigate('place-details', { placeId: item.id })
+          }
+        />
+      )}
       keyExtractor={(item) => item.id}
     />
   );

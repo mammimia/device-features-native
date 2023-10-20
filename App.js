@@ -11,6 +11,7 @@ import { init } from './database/Database';
 import AddPlace from './screens/AddPlace';
 import AllPlaces from './screens/AllPlaces';
 import PickOnMap from './screens/PickOnMap';
+import PlaceDetails from './screens/PlaceDetails';
 
 const Stack = createStackNavigator();
 
@@ -83,6 +84,13 @@ export default function App() {
             component={PickOnMap}
             options={{
               title: 'Pick a Location on the Map'
+            }}
+          />
+          <Stack.Screen
+            name="place-details"
+            component={PlaceDetails}
+            options={{
+              title: 'Place Details'
             }}
           />
         </Stack.Navigator>

@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
-import PlacesList from '../components/places/PlacesList';
-import { useEffect, useState } from 'react';
 import { useIsFocused } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import PlacesList from '../components/places/PlacesList';
 import { fetchPlaces } from '../database/Database';
 
 function AllPlaces() {
@@ -21,7 +20,5 @@ function AllPlaces() {
 
   return <PlacesList places={places} />;
 }
-
-const styles = StyleSheet.create({});
 
 export default AllPlaces;

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    borderButtomLeftRadius: 4,
+    borderBottomLeftRadius: 4,
     borderTopLeftRadius: 4,
     height: 100
   },

@@ -12,7 +12,7 @@ function PlaceForm({ onCreatePlace }) {
   const [location, setLocation] = useState();
 
   function savePlaceHandler() {
-    const place = new Place(title, image, location);
+    const place = new Place(null, title, image, location);
     onCreatePlace(place);
   }
 

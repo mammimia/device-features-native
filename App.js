@@ -83,7 +83,7 @@ export default function App() {
             name="map"
             component={PickOnMap}
             options={{
-              title: 'Pick a Location on the Map'
+              title: 'Map'
             }}
           />
           <Stack.Screen

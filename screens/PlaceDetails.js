@@ -6,9 +6,13 @@ import { fetchPlaceDetails } from '../database/Database';
 
 function PlaceDetails({ route, navigation }) {
   const [placeDetails, setPlaceDetails] = useState(null);
-  function showOnMapHandler() {}
-
   const selectedPlaceId = route.params?.placeId;
+
+  function showOnMapHandler() {
+    navigation.navigate('map', {
+      initialLocation: placeDetails.location
+    });
+  }
 
   useEffect(() => {
     async function loadPlaceDetails() {

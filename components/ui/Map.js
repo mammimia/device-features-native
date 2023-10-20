@@ -19,9 +19,11 @@ function Map({
       onPress={onPress}
       {...props}
     >
-      {selectedLocation && (
-        <Marker title="Picked Location" coordinate={selectedLocation} />
-      )}
+      {selectedLocation &&
+        selectedLocation.latitude &&
+        selectedLocation.longitude && (
+          <Marker title="Picked Location" coordinate={selectedLocation} />
+        )}
     </MapView>
   );
 }

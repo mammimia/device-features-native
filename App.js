@@ -90,7 +90,7 @@ export default function App() {
             name="place-details"
             component={PlaceDetails}
             options={{
-              title: 'Place Details'
+              title: 'Loading Place...'
             }}
           />
         </Stack.Navigator>

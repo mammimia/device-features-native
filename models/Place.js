@@ -4,5 +4,6 @@ export class Place {
     this.title = title;
     this.imageUri = imageUri;
     this.location = location;
+    this.address = '4513 Charmaine Lane, Los Angeles, CA 90017';
   }
 }
